@@ -34,8 +34,8 @@ Item {
             width: sprite.width
             height: sprite.height
             radius: width
-            x: 200
-            y: 400
+            x: display.width - 100
+            y: display.height - 150
             color: "transparent"
             // border.color: "cyan"
             // border.width: 2
@@ -106,7 +106,7 @@ Item {
                 property real x: parent.x
                 property real y: parent.y
                 property real vx: -200 // in pixels per second
-                property real vy: 0
+                property real vy: -100
                 property real lastx: 0
                 property real lasty: 0
                 property real lastt: 0
