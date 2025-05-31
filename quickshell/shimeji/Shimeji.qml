@@ -43,7 +43,7 @@ Item {
 
             Rectangle {
               width: 300
-              height: 80
+              height: 30
               radius: 3
               border.width: 0
               border.color: Colors.accent1
@@ -54,6 +54,8 @@ Item {
                 text: notif.body
                 color: "white"
                 anchors.centerIn: parent
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignJustify
                 elide: Text.ElideRight
                 width: parent.width - 10
                 height: parent.height
@@ -62,7 +64,6 @@ Item {
                     pixelSize: 19
                 }
                 wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignJustify
               }
             }
 
