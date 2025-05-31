@@ -6,7 +6,7 @@ import "./."
 
 Singleton {
     id: root
-    readonly property int imageWidth: 80
+    readonly property int imageWidth: 64
 
     // default tos when on ground
     readonly property var groundTos: {
@@ -18,7 +18,7 @@ Singleton {
 
     // Qt6 still on ECMA7... can't do spread operator on objects... :(
     function newTos(defaultObject, overrides) {
-        var result = {}
+        var result = {};
         for (var key in defaultObject) {
             result[key] = defaultObject[key]; // Copy default values
         }
@@ -32,30 +32,31 @@ Singleton {
         BasicSprite {
             name: "standing-left"
             frameCount: 1
-            frameX: root.imageWidth * 1
-            frameY: root.imageWidth * 0
+            frameX: root.imageWidth * 6
+            frameY: root.imageWidth * 1
             to: root.newTos(root.groundTos, {
-              "standing-left": 100,
-              "standing-right": 50,
-              "walking-left": 50
+                "standing-left": 100,
+                "standing-right": 50,
+                "walking-left": 50
             })
         },
         BasicSprite {
             name: "standing-right"
             frameCount: 1
-            frameX: root.imageWidth * 1
-            frameY: root.imageWidth * 1
+            frameX: root.imageWidth * 6
+            frameY: root.imageWidth * 0
             to: root.newTos(root.groundTos, {
-              "standing-right": 100,
-              "standing-left": 50,
-              "walking-right": 50
+                "standing-right": 100,
+                "standing-left": 50,
+                "walking-right": 50
             })
         },
         BasicSprite {
             name: "walking-left"
-            frameCount: 4
+            frameCount: 6
+            reverse: true
             frameX: root.imageWidth * 0
-            frameY: root.imageWidth * 0
+            frameY: root.imageWidth * 1
             to: root.newTos(root.groundTos, {
                 "standing-left": 50,
                 "walking-left": 100
@@ -63,13 +64,33 @@ Singleton {
         },
         BasicSprite {
             name: "walking-right"
-            frameCount: 4
+            frameCount: 6
             frameX: root.imageWidth * 0
-            frameY: root.imageWidth * 1
+            frameY: root.imageWidth * 0
             to: root.newTos(root.groundTos, {
                 "standing-right": 50,
                 "walking-right": 100
             })
+        },
+        BasicSprite {
+            name: "dying"
+            frameCount: 3
+            frameX: root.imageWidth * 0
+            frameY: root.imageWidth * 2
+            to: {
+                "dead": 100
+            }
+            frameRate: 1
+        },
+        BasicSprite {
+            name: "dead"
+            frameCount: 1
+            frameX: root.imageWidth * 2
+            frameY: root.imageWidth * 2
+            to: {
+                "dead": 100
+            }
+            frameRate: 4
         }
     ]
 }

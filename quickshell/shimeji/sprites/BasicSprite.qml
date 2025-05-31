@@ -1,9 +1,8 @@
 import QtQuick
 
 Sprite {
-  source: "image.png"
-  frameWidth:80
-  frameHeight:80
+  source: "goblins-modified.png"
+  frameWidth:64
+  frameHeight:64
   frameRate: 4
-
 }

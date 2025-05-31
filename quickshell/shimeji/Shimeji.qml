@@ -33,7 +33,7 @@ Item {
             id: rect
             width: sprite.width
             height: sprite.height
-            radius: 40
+            radius: width
             x: 200
             y: 400
             color: "transparent"
@@ -41,11 +41,9 @@ Item {
             // border.width: 2
 
             Rectangle {
-                width: 300
+                width: 250
                 height: 30
                 radius: 3
-                border.width: 0
-                border.color: Colors.accent1
                 color: "#c01f1f1f"
                 anchors.bottom: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -79,18 +77,23 @@ Item {
 
             SpriteSequence {
                 id: sprite
-                width: 80
-                height: 80
+                width: 64
+                height: 64
                 // Argh why is there bleedthrough when smooth: true :(((
                 // smooth: false
                 interpolate: false
                 running: true
                 sprites: SpriteList.slist
                 // transform: Rotation{origin.x: 40; origin.y: 40; angle: physics.x}
+
+                // onCurrentSpriteChanged: {
+                //   console.log(currentSprite)
+                // }
+
             }
             Timer {
                 id: physics
-                interval: 90 // milliseconds
+                interval: 40 // milliseconds
                 running: true
                 repeat: true
                 readonly property real dt: interval / 1000
@@ -111,13 +114,12 @@ Item {
                 property int die: 0
                 property bool dying: false
                 property bool onGround: false
-                readonly property int walkSpeed: 90
+                readonly property int walkSpeed: 60
 
                 onTriggered: {
-                    if (sprite.currentSprite == "finally-dead") {}
-                    // if (dying) {
-                    //     root.notif.dismiss();
-                    // }
+                    if (sprite.currentSprite == "dead") {
+                        root.notif.dismiss();
+                    }
 
                     if (parent.held) {
                         physics.lastx = x;
@@ -130,7 +132,7 @@ Item {
                         physics.f = 0.5;
                         physics.r = 0.5;
                         physics.vx = 500 * die;
-                        physics.vy = -500;
+                        physics.vy = -300;
                         die = 0;
                         dying = true;
                         sprite.jumpTo("dying");
@@ -171,12 +173,16 @@ Item {
                             x = 0;
                             vx = -vx * r;
                             vy *= f;
-                            sprite.jumpTo("walking-right");
+                            if (!dying) {
+                                sprite.jumpTo("walking-right");
+                            }
                         } else if (x + parent.width > display.width) {
                             x = display.width - parent.width;
                             vx = -vx * r;
                             vy *= f;
-                            sprite.jumpTo("walking-left");
+                            if (!dying) {
+                                sprite.jumpTo("walking-left");
+                            }
                         }
                     }
                     parent.x = x;
@@ -207,9 +213,10 @@ Item {
                 if (containsMouse) {
                     oldMouseX = mouseArea.mouseX;
                 } else {
-                    if (mouseArea.mouseX - oldMouseX >= 50) {
+                    if (mouseArea.mouseX - oldMouseX >= 50 && mouseArea.mouseY >= 0.8 * display.height) {
                         physics.die = 1;
-                    } else if (oldMouseX - mouseArea.mouseX >= 50) {
+                    } else if (oldMouseX - mouseArea.mouseX >= 50 && mouseArea.mouseY >= 0.8 * display.height) {
+                        console.log(mouseArea.mouseY);
                         physics.die = -1;
                     }
                     oldMouseX = 0;
