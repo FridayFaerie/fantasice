@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Notifications
@@ -40,27 +41,73 @@ Item {
             // border.color: "cyan"
             // border.width: 2
 
+            // NOTE: this elide behavior is from allpurposemat's Quickbar
             Rectangle {
-                width: 250
-                height: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.top
+                width: bodyBox.width + 10
+                height: bodyBox.height + 10
                 radius: 3
                 color: "#c01f1f1f"
-                anchors.bottom: parent.top
-                anchors.horizontalCenter: parent.horizontalCenter
-                Text {
-                    text: notif.body
-                    color: "white"
+
+                Rectangle {
+                    id: bodyBox
+
+                    width: 250
+                    height: 30
+                    property int maxHeight: 0
+
                     anchors.centerIn: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignJustify
-                    elide: Text.ElideRight
-                    width: parent.width - 10
-                    height: parent.height
-                    font {
-                        family: "Caslonia"
-                        pixelSize: 19
+
+                    color: "transparent"
+
+                    states: State {
+                        name: "expand"
+                        when: rect.held
+                        PropertyChanges {
+                            target: bodyBox
+                            height: bodyBox.maxHeight
+                        }
                     }
-                    wrapMode: Text.Wrap
+
+                    transitions: Transition {
+                        NumberAnimation {
+                            properties: "height"
+                            duration: 80
+                        }
+                    }
+
+                    Text {
+                        id: text
+
+                        width: parent.width
+                        height: parent.height
+
+                        onImplicitHeightChanged: {
+                            if (text.implicitHeight < bodyBox.height) {
+                                bodyBox.height = text.implicitHeight;
+                            }
+                            if (text.implicitWidth < bodyBox.width) {
+                                bodyBox.width = text.implicitWidth;
+                            }
+                        }
+
+                        Component.onCompleted: () => {
+                            bodyBox.maxHeight = Qt.binding(() => text.implicitHeight);
+                        }
+
+                        text: root.notif.body
+                        color: "white"
+                        anchors.centerIn: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignJustify
+                        elide: Text.ElideRight
+                        font {
+                            family: "Caslonia"
+                            pixelSize: 19
+                        }
+                        wrapMode: Text.Wrap
+                    }
                 }
             }
 
