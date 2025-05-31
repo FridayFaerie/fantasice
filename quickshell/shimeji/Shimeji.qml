@@ -6,13 +6,13 @@ import "./sprites"
 import "root:/config"
 
 Item {
+    id: root
     required property Notification notif
 
     PanelWindow {
         id: display
         WlrLayershell.layer: WlrLayer.Overlay
         exclusionMode: ExclusionMode.Ignore
-
 
         height: screen.height
         width: screen.width
@@ -40,31 +40,30 @@ Item {
             // border.color: "cyan"
             // border.width: 2
 
-
             Rectangle {
-              width: 300
-              height: 30
-              radius: 3
-              border.width: 0
-              border.color: Colors.accent1
-              color: "#c01f1f1f"
-              anchors.bottom: parent.top
-              anchors.horizontalCenter: parent.horizontalCenter
-              Text {
-                text: notif.body
-                color: "white"
-                anchors.centerIn: parent
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignJustify
-                elide: Text.ElideRight
-                width: parent.width - 10
-                height: parent.height
-                font {
-                    family: "Caslonia"
-                    pixelSize: 19
+                width: 300
+                height: 30
+                radius: 3
+                border.width: 0
+                border.color: Colors.accent1
+                color: "#c01f1f1f"
+                anchors.bottom: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text {
+                    text: notif.body
+                    color: "white"
+                    anchors.centerIn: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignJustify
+                    elide: Text.ElideRight
+                    width: parent.width - 10
+                    height: parent.height
+                    font {
+                        family: "Caslonia"
+                        pixelSize: 19
+                    }
+                    wrapMode: Text.Wrap
                 }
-                wrapMode: Text.Wrap
-              }
             }
 
             property bool held: false
@@ -115,24 +114,27 @@ Item {
                 readonly property int walkSpeed: 90
 
                 onTriggered: {
-                  if (sprite.currentSprite == "finally-dead") {
-                  }
+                    if (sprite.currentSprite == "finally-dead") {}
+                    // if (dying) {
+                    //     root.notif.dismiss();
+                    // }
 
-                  if (die*die == 1) {
-                    physics.onGround = false
-                    physics.f = 0.5
-                    physics.r = 0.5
-                    physics.vx = 500 * die
-                    physics.vy = -500
-                    die = 0
-                    dying = true
-                    sprite.jumpTo("dying")
-                  } else if (parent.held) {
+                    if (parent.held) {
                         physics.lastx = x;
                         physics.lasty = y;
                         physics.x = mouseArea.mouseX - rect.width / 2;
                         physics.y = mouseArea.mouseY - rect.height / 2;
-                      } else if (onGround) {
+                        die = 0;
+                    } else if (die * die == 1) {
+                        physics.onGround = false;
+                        physics.f = 0.5;
+                        physics.r = 0.5;
+                        physics.vx = 500 * die;
+                        physics.vy = -500;
+                        die = 0;
+                        dying = true;
+                        sprite.jumpTo("dying");
+                    } else if (onGround) {
                         if (sprite.currentSprite == "walking-right") {
                             x += walkSpeed * dt;
                             if (x + parent.width > display.width) {
@@ -158,8 +160,8 @@ Item {
                             if (vy < g * dt) {
                                 vy = 0;
                                 if (!dying) {
-                                onGround = true;
-                              }
+                                    onGround = true;
+                                }
                             }
                             y = display.height - parent.height;
                             vy = -vy * r;
@@ -202,16 +204,16 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             onContainsMouseChanged: {
-              if (containsMouse) {
-                oldMouseX = mouseArea.mouseX
-              } else {
-                if ( mouseArea.mouseX - oldMouseX>=50) {
-                  physics.die = 1
-                } else if ( oldMouseX - mouseArea.mouseX >=50) {
-                  physics.die = -1
+                if (containsMouse) {
+                    oldMouseX = mouseArea.mouseX;
+                } else {
+                    if (mouseArea.mouseX - oldMouseX >= 50) {
+                        physics.die = 1;
+                    } else if (oldMouseX - mouseArea.mouseX >= 50) {
+                        physics.die = -1;
+                    }
+                    oldMouseX = 0;
                 }
-                oldMouseX = 0
-              }
             }
             onPressed: {
                 rect.held = true;

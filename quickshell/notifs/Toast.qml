@@ -100,31 +100,6 @@ Item {
         }
     }
 
-    Badge {
-        id: badge
-        // TODO: might be a better way to do this :/
-        imagesource: notif.image != "" ? notif.image : (notif.appIcon != "" ? Quickshell.iconPath(notif.appIcon) : "")
-        size: 40
-
-        anchors.horizontalCenter: box.right
-        anchors.verticalCenter: box.top
-        anchors.horizontalCenterOffset: -12
-        anchors.verticalCenterOffset: 8
-    }
-    Badge {
-        id: appbadge
-        imagesource: notif.appIcon != "" & notif.image != "" ? Quickshell.iconPath(notif.appIcon) : ""
-        size: {
-            console.log(notif.appIcon);
-            return 18;
-        }
-
-        anchors.horizontalCenter: box.right
-        anchors.verticalCenter: box.top
-        anchors.horizontalCenterOffset: 0
-        anchors.verticalCenterOffset: 28
-    }
-
     // done: appicon, notifsummary, notifimage, notifbody,
     // not done: hide, dismiss, show-all, row of buttons in show-all?
 }
