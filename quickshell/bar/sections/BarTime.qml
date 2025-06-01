@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import "root:/config"
+import "root:///config"
 
 Rectangle {
 

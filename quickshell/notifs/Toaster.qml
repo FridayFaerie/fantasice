@@ -30,8 +30,8 @@ PanelWindow {
 
     mask: Region {
         // intersection: Intersection.Combine
-        height: list.contentHeight + list.y
-        width: root.width
+        // height: list.contentHeight + list.y
+        // width: root.width
     }
 
     margins {
