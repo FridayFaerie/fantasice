@@ -3,6 +3,7 @@ unfortunately did not have time to do more :(
 
 please don't look at the code too hard, it's really really bad :((((
 
+my actual bar that I'd update: https://github.com/FridayFaerie/quickshell
 if you're looking for something in the video that's not here, it might be at https://github.com/FridayFaerie/dotfiles
 
 
