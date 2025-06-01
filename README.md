@@ -1,6 +1,9 @@
 made as attempt at hyprland ricing competition
 unfortunately did not have time to do more :(
 
+please don't look at the code too hard, it's really really bad :((((
+
+
 I do not include copyrighted assets that I've no right to distribute; sources are below
 
 - font: https://www.1001fonts.com/caslonia-font.html
