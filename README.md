@@ -17,6 +17,9 @@ I do not include copyrighted assets that I've no right to distribute; sources ar
 - spinny cursor plugin: https://github.com/VirtCode/hypr-dynamic-cursors
 - hyprscrolling: https://github.com/hyprwm/hyprland-plugins/tree/main/hyprscrolling
 - goblin: https://opengameart.org/content/lpc-goblin - I'm not sure which license this is under, the page has like 5 different licenses
+  - Stephen "Redshrike" Challener as graphic artist and William.Thompsonj as contributor
+- explosions: https://opengameart.org/content/bomb-explosion-animation
+  - Blood _ Copyright 2011 by shimobayashi <http://opengameart.org/content/teqq-princess-image-materials> Color edit to look like explosion Copyright 2012 by qubodup <http://opengameart.org/users/qubodup> License: CCBY3 or later <http://creativecommons.org/licenses/by/3.0/>
 
 with quickshell influences/help from pgattic, AlephNought0, Xanazf, pterror, allpurposemat, nydragon
 
