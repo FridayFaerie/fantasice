@@ -22,14 +22,14 @@ Rectangle {
     TextObjectIcons {
         id: notifIcon
         anchors.centerIn: parent
-        text: active?"":""
+        text: active?"":"close"
         color: Colors.accent2
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: {
               root.active = !root.active
-              External.swaync()
+              External.shutdown()
             }
         }
     }

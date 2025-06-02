@@ -12,12 +12,14 @@ Singleton {
 
     // property string debugValue:
 
-
     function drun() {
         drun.running = true;
     }
     function btop() {
         btop.running = true;
+    }
+    function shutdown() {
+        shutdown.running = true;
     }
     function swaync() {
         swaync.running = true;
@@ -63,6 +65,7 @@ Singleton {
             // getUptime.running = true;
             getMEMinfo.reload();
             getDiskinfo.running = true;
+            pid.running = true;
         }
     }
 
@@ -190,9 +193,6 @@ Singleton {
         id: drun
         command: ["sh", "-c", "rofi -show drun -show-icons"]
         running: false
-        onExited: {
-            running = false;
-        }
     }
     Process {
         id: btop
@@ -206,6 +206,11 @@ Singleton {
         onExited: {
             running = false;
         }
+    }
+    Process {
+        id: shutdown
+        command: ["sh", "-c", "hyprctl dispatch exit"]
+        running: false
     }
     Process {
         id: swaync
@@ -224,6 +229,15 @@ Singleton {
         stdout: SplitParser {
             onRead: data => {
                 console.log(root.debugValue);
+            }
+        }
+    }
+    Process {
+        id: pid
+        command: ["sh", "-c", "echo ${PPID}"]
+        stdout: SplitParser {
+            onRead: data => {
+                console.log(data)
             }
         }
     }

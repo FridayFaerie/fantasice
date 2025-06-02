@@ -78,15 +78,35 @@ Singleton {
             frameX: root.imageWidth * 0
             frameY: root.imageWidth * 2
             to: {
-                "dead": 100
+                "explosion1": 100
             }
             frameRate: 1
         },
         BasicSprite {
+            name: "explosion1"
+            frameCount: 8
+            frameX: root.imageWidth * 0
+            frameY: root.imageWidth * 3
+            to: {
+                "explosion2": 100
+            }
+            frameRate: 16
+        },
+        BasicSprite {
+            name: "explosion2"
+            frameCount: 8
+            frameX: root.imageWidth * 0
+            frameY: root.imageWidth * 4
+            to: {
+                "dead": 100
+            }
+            frameRate: 16
+        },
+        BasicSprite {
             name: "dead"
             frameCount: 1
-            frameX: root.imageWidth * 2
-            frameY: root.imageWidth * 2
+            frameX: root.imageWidth * 0
+            frameY: root.imageWidth * 5
             to: {
                 "dead": 100
             }
