@@ -4,6 +4,7 @@ import Quickshell
 import "./notifs"
 
 ShellRoot {
+
     Bar {}
     Toaster {}
 }

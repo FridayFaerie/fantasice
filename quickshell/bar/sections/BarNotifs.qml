@@ -22,7 +22,7 @@ Rectangle {
     TextObjectIcons {
         id: notifIcon
         anchors.centerIn: parent
-        text: active?"":"close"
+        text: active?"":""
         color: Colors.accent2
         MouseArea {
             anchors.fill: parent
