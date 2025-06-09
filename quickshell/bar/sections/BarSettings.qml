@@ -43,7 +43,6 @@ Rectangle {
 
             onClicked: {
                 External.lockscreen();
-                External.changewall();
             }
             onWheel: event => {
                 if (event.angleDelta.y > 0) {

@@ -2,21 +2,19 @@ import Quickshell
 import QtQuick
 import "./bar"
 import "root:/config"
+import "root:/io"
 
 Scope {
     Variants {
         model: Quickshell.screens
         PanelWindow {
             id: panel
+
+
             property var modelData
             screen: modelData
 
-            // TODO: what on earth is going on here
-            // property var test: {
-            //   console.log(Config.bar.barHeight)
-            //   return Config.bar.barHeight
-            // }
-            implicitHeight: 40
+            implicitHeight: Config.bar.barHeight
             implicitWidth: screen.width
 
             color: "transparent"
