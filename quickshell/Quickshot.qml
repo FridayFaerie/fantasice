@@ -38,22 +38,19 @@ PanelWindow {
             drawCommands += " L " + pathPoints[i].x + "," + pathPoints[i].y;
         }
         drawCommands += " Z'";
-        console.log(drawCommands);
+        Quickshell.execDetached(["sh", "-c", `magick /tmp/quickshot.png \\( -size $(identify -format "%wx%h" /tmp/quickshot.png) xc:none -fill white -stroke none -draw "${drawCommands}" \\) -alpha off -compose copy_opacity -composite -trim +repage ~/Pictures/$(date -u +%Y-%m-%d-%H-%M-%S_quickshot.png)`]);
     }
 
+    // TODO: change to screenshotting after drawing annotations?
     Process {
         id: screenshot
-        command: ["sh", "-c", `grim -l 0 -g '${screen.x},${screen.y} ${screen.width}x${screen.height}' /tmp/quickshot.png`]
+        command: ["sh", "-c", `grim -l 0 -g '${screen.x},${screen.y} ${screen.width}x${screen.height}' -s 1 /tmp/quickshot.png`]
         running: true
-        stdout: StdioCollector { 
-          onStreamFinished: console.log(this.text)
-        }
-        stderr: StdioCollector {
-          onStreamFinished: console.log(this.text)
-        }
-        onExited: {
-            console.log("done screenshotting");
-        }
+        // stdout: StdioCollector { onStreamFinished: console.log(this.text) }
+        // stderr: StdioCollector { onStreamFinished: console.log(this.text) }
+        // onExited: {
+        //   console.log(`grim -l 0 -g '${screen.x},${screen.y} ${screen.width}x${screen.height}' /tmp/quickshot.png`)
+        // }
     }
 
     property var pathPoints: []
@@ -94,7 +91,7 @@ PanelWindow {
             }
 
             onPositionChanged: {
-                if (pressed && (mouse.x - oldX) ** 2 + (mouse.y - oldY) ** 2 > 8000) {
+                if (pressed && (mouse.x - oldX) ** 2 + (mouse.y - oldY) ** 2 > 3000) {
                     oldX = mouse.x;
                     oldY = mouse.y;
                     pathPoints.push(Qt.point(mouse.x, mouse.y));
@@ -116,4 +113,3 @@ PanelWindow {
         }
     }
 }
-
