@@ -1,4 +1,3 @@
-// please let me know if I can improve this in any way... no clue what I'm doing.....
 pragma Singleton
 
 import QtQuick
@@ -9,8 +8,6 @@ import "root:/bar/sections"
 
 Singleton {
     id: root
-
-    // property string debugValue:
 
     function drun() {
         drun.running = true;

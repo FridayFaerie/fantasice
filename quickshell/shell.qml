@@ -7,5 +7,5 @@ ShellRoot {
     Bar {}
     Toaster {}
     ReloadPopup {}
-
+    // Quickshot {}
 }

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import "root:/config"
 import "root:/io"
+import "root:/"
 
 Rectangle {
     id: root
@@ -28,10 +29,16 @@ Rectangle {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-              root.active = !root.active
-              External.shutdown()
+              // root.active = !root.active
+              // External.shutdown()
+              console.log(quickshot.item)
+              quickshot.item.visible = true
             }
         }
+    }
+
+    Quickshot {
+      id: quickshot
     }
 
 }
