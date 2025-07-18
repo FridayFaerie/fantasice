@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import "root:/config"
 import "root:/io"
-import "root:/"
 
 Rectangle {
     id: root
@@ -31,14 +30,10 @@ Rectangle {
             onClicked: {
               // root.active = !root.active
               // External.shutdown()
-              console.log(quickshot.item)
-              quickshot.item.visible = true
+              GlobalStates.screenshotActive = true
             }
         }
     }
 
-    Quickshot {
-      id: quickshot
-    }
 
 }

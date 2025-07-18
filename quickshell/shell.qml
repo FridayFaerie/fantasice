@@ -7,5 +7,8 @@ ShellRoot {
     Bar {}
     Toaster {}
     ReloadPopup {}
-    // Quickshot {}
+    Quickshot {
+      id: quickshot
+      property var variable: "hihihihi"
+    }
 }

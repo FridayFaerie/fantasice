@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Notifications
@@ -96,7 +95,7 @@ Item {
                             bodyBox.maxHeight = Qt.binding(() => text.implicitHeight);
                         }
 
-                        text: root.notif.body
+                        text: root.notif.body + "\n\n\n" + root.notif.summary
                         color: "white"
                         anchors.centerIn: parent
                         verticalAlignment: Text.AlignVCenter
@@ -259,6 +258,7 @@ Item {
             onContainsMouseChanged: {
                 if (containsMouse) {
                     oldMouseX = mouseArea.mouseX;
+                    console.log(mouse.x)
                 } else {
                     if (mouseArea.mouseX - oldMouseX >= 50 && mouseArea.mouseY >= 0.8 * display.height) {
                         physics.die = 1;

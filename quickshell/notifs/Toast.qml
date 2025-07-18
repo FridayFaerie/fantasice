@@ -68,7 +68,7 @@ Item {
                 Layout.rightMargin: 10
                 Layout.bottomMargin: 4
                 Text {
-                    visible: text != ""
+                    visible: true
                     text: notif.summary
                     color: Colors.accent2
                     elide: Text.ElideRight
