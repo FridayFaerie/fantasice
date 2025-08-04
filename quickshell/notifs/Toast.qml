@@ -68,7 +68,7 @@ Item {
                 Layout.rightMargin: 10
                 Layout.bottomMargin: 4
                 Text {
-                    visible: true
+                    visible: text != ""
                     text: notif.summary
                     color: Colors.accent2
                     elide: Text.ElideRight
@@ -98,6 +98,31 @@ Item {
                 wrapMode: Text.Wrap
             }
         }
+    }
+
+    Badge {
+        id: badge
+        // TODO: might be a better way to do this :/
+        imagesource: notif.image != "" ? notif.image : (notif.appIcon != "" ? Quickshell.iconPath(notif.appIcon) : "")
+        size: 40
+
+        anchors.horizontalCenter: box.right
+        anchors.verticalCenter: box.top
+        anchors.horizontalCenterOffset: -12
+        anchors.verticalCenterOffset: 8
+    }
+    Badge {
+        id: appbadge
+        imagesource: notif.appIcon != "" & notif.image != "" ? Quickshell.iconPath(notif.appIcon) : ""
+        size: {
+            console.log(notif.appIcon);
+            return 18;
+        }
+
+        anchors.horizontalCenter: box.right
+        anchors.verticalCenter: box.top
+        anchors.horizontalCenterOffset: 0
+        anchors.verticalCenterOffset: 28
     }
 
     // done: appicon, notifsummary, notifimage, notifbody,

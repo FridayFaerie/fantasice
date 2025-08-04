@@ -73,8 +73,8 @@ PanelWindow {
             }
         }
 
-        delegate: Shimeji {
-        }
+        delegate: Shimeji { }
+        // delegate: Toast {}
 
 
 

@@ -56,8 +56,7 @@ Singleton {
         triggeredOnStart: true
         onTriggered: {
             // getUptime.running = true;
-            getMEMinfo.reload();
-            getDiskinfo.running = true;
+            getSTOinfo.running = true;
             pid.running = true;
         }
     }
@@ -71,6 +70,7 @@ Singleton {
         onTriggered: {
             getTEMPinfo.reload();
             // printDebug.running = true;
+            getMEMinfo.reload();
             getCPUinfo.reload();
         }
     }
@@ -157,31 +157,33 @@ Singleton {
         }
     }
 
-    Process { // this is from Xanazf - but very stripped
-        id: getDiskinfo
-        command: ["sh", "-c", "lsblk -fnJA"]
+    Process { // stolen from starch :))
+        id: getSTOinfo
+
         running: true
+
+        command: ["sh", "-c", "df | grep '^/dev/' | awk '{print $3, $4}'"]
+
         stdout: SplitParser {
             splitMarker: ""
+
             onRead: data => {
-                const parsed = JSON.parse(data);
-                const blockdevices = parsed.blockdevices;
-                for (const device of blockdevices) {
-                    let usedPercent;
-                    for (const child of device.children) {
-                        if (!child.fsavail) {
-                            continue;
-                        }
-                        usedPercent = Number(child["fsuse%"].slice(0, -1));
-                    }
-                    root.usedSTO = usedPercent;
+                const lines = data.trim().split("\n");
+                let used = 0;
+                let free = 0;
+
+                for (const line of lines) {
+                    const [u, a] = line.split(" ");
+
+                    used += parseInt(u, 10);
+                    free += parseInt(a, 10);
                 }
+
+                root.usedSTO = Math.round(100*used/free);
             }
         }
-        onExited: {
-            running = false;
-        }
     }
+
     Process {
         id: drun
         command: ["sh", "-c", "rofi -show drun -show-icons"]
@@ -224,7 +226,7 @@ Singleton {
         command: ["sh", "-c", "echo ${PPID}"]
         stdout: SplitParser {
             onRead: data => {
-                console.log(data)
+                console.log(data);
             }
         }
     }
